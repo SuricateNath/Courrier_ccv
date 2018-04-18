@@ -1,0 +1,198 @@
+/* CSS declarations go here */
+.resize-vertical{
+	resize: vertical;
+}
+body {
+  font-family:  sans-serif;
+  background-attachment: fixed;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  max-width: 100%;
+}
+
+/*css du header/navbar*/
+.container-fluid {
+  padding:0;
+  min-height: 100%;
+}
+
+.navbar{
+  height:70px;
+  margin: 0 auto;
+  display: block;
+  padding:15px;
+}
+.title{
+color:#ffffff;
+text-align: center; 
+padding:10px; 
+/*display: block; */
+height:auto;
+}
+
+/* css du body*/
+.title2{
+  margin:0 auto;
+  padding:10px;
+  background-color: #dddddd;
+  font-weight: bold;
+}
+
+.title3{
+  margin:0 auto;
+  padding:20px;
+}
+
+.search{
+  margin: 20px;
+  padding:20px;
+}
+
+
+.form-control{
+  background-color: #ffffff;
+}
+
+.ligne1{
+  height:2px;
+  background-color: #1e73be;
+}
+.ligne2{
+  height:2px;
+  background-color: #e5e5e5;
+}
+
+
+
+.panel-default{
+border:0;
+display: block;
+margin: auto;
+}
+
+.js-new-note{
+  margin: 0 15px 0 20px;
+}
+
+.panel-body {
+  padding-bottom: 10px;
+  padding-top: 0;
+  margin: 0 auto;  
+  min-height: 100%;
+  background-color: #dddddd;
+}
+
+.btn-primary{
+	align-content: center;
+  margin: 0 auto;
+  background-color: #3a3a3a;
+  color:#ffffff;
+  font-size: 1.2em;
+  height:34px;
+  line-height: 20px;
+}
+.btn1{
+  width:30%;
+  height:45px;
+  margin: 0 auto;
+  background-color: #3a3a3a;
+  color:#ffffff;
+  font-size: 1.2em;
+  align-content: center;
+}
+
+.btn2{
+  width:50%;
+  margin: 0 auto;
+  background-color: #3a3a3a;
+  color:#ffffff;
+  font-size: 0.95em;
+}
+.btn3{
+  width:50%;
+  height: 45px;
+}
+
+.js-edit-note {
+  color:#000000;
+  padding: 7px 25px;
+  margin: 0 auto;
+  display: block;
+}
+
+.list-group-item{
+  min-height: 100%;
+}
+.l1{
+  width:10%;
+
+}
+.l2{
+  width:10%;
+}
+.l3, .l4{
+  width:15%;
+}
+.l5{
+  width:15%;
+}
+.l6{
+  width:10%;
+}
+
+.l7{
+ width:25%;
+}
+
+.l8{
+ width:5%;
+}
+
+label{
+  margin: auto;
+  display: block;
+  text-align: center;
+}
+
+.col-xs-12, .col-xs-1, .col-xs-2, .col-xs-3,  .col-xs-6, .col-xs-9{
+  margin:0 auto;
+  display: block;
+  padding: 0 5px 0 5px;
+}
+
+.zone1{
+  font-size: 1.35em;
+  text-align: center;
+}
+
+.info{
+vertical-align: middle;
+padding: 10px 15px ;
+
+}
+.modal-footer{
+  text-align: center;
+}
+
+footer {
+    width: 100%;
+    background-color: #3a3a3a;
+    padding: 10px 5px;
+    color:#ffffff;
+    bottom: 0;
+    font-size: 0.85em;
+
+  }
+
+list-note>li>{
+  overflow-y: auto;
+  max-height: 200px;
+}
+
+ 
