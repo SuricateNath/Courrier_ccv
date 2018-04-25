@@ -1,40 +1,24 @@
-
-
-
 <body>
   <div class="container-fluid">
     <nav class="navbar navbar-inverse navbar-static-top nav nav-pills flex-column flex-sm-row">
-      <h2 class="title text-center" style=" display: inline; font-size: 0.95em:">CCV Friville - Gestion des courriers reçus</h2>       
+      <h2 class="title text-center" style=" display: inline; font-size: 0.95em:">CCV Friville - Gestion des notess reçus</h2>       
     </nav> 
     <div class="row">
       <div class="col-sm-12 ">
           <h2 class="text-center title2"> Nouvel enregistrement</h2>
       </div>
     </div>
-    {{> form_new_note}}
+    {{> form_new_notes}}
     <div class="row">
       <div class="col-sm-12 ligne1"> &nbsp;</div>
     </div>
 
     <div class="row">
-      <div class="col-sm-12 ligne1"> &nbsp;</div>
-    </div>
-    <div class="row"> 
-      <div class="col-sm-8">
-        <h2 class="text-center title3"> Liste des courriers enregistrés</h2> 
-      </div>  
-      <div class="col-sm-4">
-          {{> form_search_note }} 
-      </div> 
-    </div>
-    <div class="row">
-      <div class="col-sm-12 ligne2"> &nbsp;</div>
-    </div>
-    <div class="row">
       <div class="col-sm-12" >
-        {{> list_note}}    
+        {{> list_notes}}    
       </div>
     </div>
+
     <footer>
       <div class="row "> 
         <div class="col-sm-12 text-center">
@@ -46,7 +30,7 @@
   </div>
 </body>
 
-<template name="form_search_note">
+<template name="form_search_notes">
   <div class="form-group row title3"> 
         <div class="col-sm-12 text-center">
           <input type="text" name="search" placeholder="Elément a rechercher" class="form-control">
@@ -54,7 +38,7 @@
       </div> 
 </template>
 
-<template name="form_new_note" id="idform"> 
+<template name="form_new_notes" id="idform"> 
   <div class="row">
     <div class="col-sm-12">
       <div class="panel panel-default">
@@ -89,7 +73,31 @@
   </div>
 </template>
  
-<template name="list_note">
+<template name="list_notes">
+
+   <div class="row"> 
+      <div class="col-sm-8">
+        <h2 class="text-center title3"> Liste des courriers reçus : {{count}} </h2> 
+      </div>  
+      <div class="col-sm-4">
+          {{> form_search_notes }} 
+      </div> 
+    </div>
+    <div class="row">
+      <div class="col-sm-12 ligne2"> &nbsp;</div>
+    </div>
+ <div class="row text-center">
+      <div class="col-xs-12 col-lg-4"> 
+        <h4>Réponse du jour: {{todayCount}} </h4>
+      </div>
+      <div class="col-xs-12 col-lg-4">
+        <h4>Réponse dépassée: {{deadlineCount}} </h4>
+      </div>    
+       <div class="col-xs-12 col-lg-4">
+        <h4>En attente de réponse: {{incompleteCount}} </h4> 
+      </div>
+  </div>
+
   <!-- entete de la liste -->
    <ul class="list-inline js-edit-note" style="background-color: #f4f6f6;">
     
@@ -109,17 +117,19 @@
       <div class="col-xs-12 ligne2"> &nbsp;</div>
     </div>
 
-    {{> single_note note=note}} <!-- ici le 1er "note" est le nom du paramètre à afficher et le second fait référence à "each note" -->
+    {{> single_notes note=note}} <!-- ici le 1er "notes" est le nom du paramètre à afficher et le second fait référence à "each notes" -->
 
     {{else}}
     <h3> Aucun enregistrement à afficher !</h3>
   {{/each}}
 
+  <hr>
+  
 </template>
 
 
-<template name="single_note">
-  <ul class="list-inline js-edit-note list-note" style="cursor: pointer;">  
+<template name="single_notes">
+  <ul class="list-inline js-edit-note list-notes" style="cursor: pointer;">  
     <li class="list-inline-item l2">{{note.date}}</li>
     <li class="list-inline-item l3">{{note.exp}}</li>
     <li class="list-inline-item l4">{{note.dest}}</li>
@@ -174,10 +184,7 @@
   </div><!-- /.modal -->
 </template>
 
-   <!-- <div class="row text-center info">
-      <div class="col-sm-3">
-        {{> courriers}}
-      </div>
+   <!-- 
       <div class="col-sm-3">
         {{> encours}}
       </div>
