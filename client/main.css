@@ -1,6 +1,10 @@
 /* CSS declarations go here */
 .resize-vertical{
-	resize: vertical;
+  resize: vertical;
+}
+
+html {
+  height: 100%
 }
 body {
   font-family:  sans-serif;
@@ -14,6 +18,7 @@ body {
   margin: 0;
   font-size: 14px;
   max-width: 100%;
+  height:100%;
 }
 
 /*css du header/navbar*/
@@ -23,7 +28,7 @@ body {
 }
 
 .navbar{
-  height:70px;
+  height:100%;
   margin: 0 auto;
   display: block;
   padding:15px;
@@ -89,7 +94,7 @@ margin: auto;
 }
 
 .btn-primary{
-	align-content: center;
+  align-content: center;
   margin: 0 auto;
   background-color: #3a3a3a;
   color:#ffffff;
@@ -119,9 +124,9 @@ margin: auto;
   height: 45px;
 }
 
-.js-edit-note {
+.js-edit-courrier {
   color:#000000;
-  padding: 7px 25px;
+  padding: 15px 0px;
   margin: 0 auto;
   display: block;
 }
@@ -129,29 +134,24 @@ margin: auto;
 .list-group-item{
   min-height: 100%;
 }
-.l1{
-  width:10%;
-
-}
 .l2{
   width:10%;
+  margin-left: 20px;
 }
-.l3, .l4{
-  width:15%;
-}
-.l5{
-  width:15%;
-}
-.l6{
+.l1, .l6{
   width:10%;
+}
+
+.l5, .l3, .l4{
+  width:15%;
 }
 
 .l7{
- width:25%;
+ width:20%;
 }
 
 .l8{
- width:5%;
+ width:10%;
 }
 
 label{
@@ -160,7 +160,7 @@ label{
   text-align: center;
 }
 
-.col-xs-12, .col-xs-1, .col-xs-2, .col-xs-3,  .col-xs-6, .col-xs-9{
+.col-xs-12, .col-xs-1, .col-xs-2, .col-xs-3,  .col-xs-6, .col-xs-9, .col-lg-1, .col-lg-2{
   margin:0 auto;
   display: block;
   padding: 0 5px 0 5px;
@@ -182,17 +182,22 @@ padding: 10px 15px ;
 
 footer {
     width: 100%;
-    background-color: #3a3a3a;
-    padding: 10px 5px;
+    background-color: #111111;
+    padding: 10px 5px ;
+    margin: 0 auto;
     color:#ffffff;
+    position: fixed;
     bottom: 0;
-    font-size: 0.85em;
-
   }
 
-list-note>li>{
-  overflow-y: auto;
-  max-height: 200px;
-}
+.hr1{
 
+  border-color: #3a3a3a;
+  margin: 0 -15px; 
+}
  
+.search{
+  margin: 0 auto; 
+  display: block;
+ }
+
