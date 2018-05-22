@@ -1,13 +1,11 @@
-/* CSS declarations go here */
 .resize-vertical{
   resize: vertical;
 }
-
 html {
   height: 100%
 }
 body {
-  font-family:  sans-serif;
+  font-family:  'Roboto sans-serif', helevitca, arial;
   background-attachment: fixed;
   position: absolute;
   top: 0;
@@ -49,16 +47,16 @@ height:auto;
   font-weight: bold;
 }
 
-.title3{
+.title3, .title4, .title5, .title6, .title7, .title8{
   margin:0 auto;
-  padding:20px;
+  padding: 10px 0 10px 0;
 }
 
-.search{
-  margin: 20px;
-  padding:20px;
+.search, .row1{
+  margin: 0 auto ;
+  padding: 0px;
+  display: block;
 }
-
 
 .form-control{
   background-color: #ffffff;
@@ -72,9 +70,6 @@ height:auto;
   height:2px;
   background-color: #e5e5e5;
 }
-
-
-
 .panel-default{
 border:0;
 display: block;
@@ -103,13 +98,14 @@ margin: auto;
   line-height: 20px;
 }
 .btn1{
-  width:30%;
+  width:120px;
   height:45px;
   margin: 0 auto;
   background-color: #3a3a3a;
   color:#ffffff;
   font-size: 1.2em;
   align-content: center;
+  padding: 0;
 }
 
 .btn2{
@@ -123,10 +119,12 @@ margin: auto;
   width:50%;
   height: 45px;
 }
-
+.ht-ul{
+line-height: 25px;
+}
 .js-edit-courrier {
   color:#000000;
-  padding: 15px 0px;
+  padding: 5px 0px;
   margin: 0 auto;
   display: block;
 }
@@ -195,9 +193,6 @@ footer {
   border-color: #3a3a3a;
   margin: 0 -15px; 
 }
- 
-.search{
-  margin: 0 auto; 
-  display: block;
- }
 
+
+/* CSS declarations go here */

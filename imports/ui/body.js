@@ -4,12 +4,28 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { Lettres } from '../api/lettres.js';
 
 import './body.html';
-
 // ici on declare des variables qui appellent 
 //la methode reactive dict et renvoi le résultat
 
+var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //Janvier = 0 
+    var yyyy = today.getFullYear();
+      if(dd<10) {
+        dd = '0'+dd
+      } 
+      if(mm<10) {
+        mm = '0'+mm
+      } 
+    today = dd + '/' +mm + '/' + yyyy;
+
 var pageSession = new ReactiveDict();
-var lettres = Lettres.find({});
+var lettres = Lettres.find({} );
+var lettres1 = Lettres.find({deadline: today} ); // du jour
+var lettres2 = Lettres.find({deadline: {$gt: today} } ); //futur
+var lettres3 = Lettres.find({deadline: {$lt: today} } ); // passé
+var lettres4 = Lettres.find({ traite: {$eq: "" } }); //non traité
+var lettres5 = Lettres.find({ traite: {$ne: "" } }); // traité
 
 // appel de la fonction search
 var LettresViewItems = function(cursor){
@@ -32,7 +48,7 @@ var LettresViewItems = function(cursor){
       searchString = searchString.replace(".", "\\.");
 
       var regEx = new RegExp(searchString, "i"); // sert à ne pas prendre en compte la casse du mot recherché
-      var searchFields = ["text", "objet", "exp"];
+      var searchFields = ["dest", "objet", "exp", "obs"];
 
       filtered = _.filter(raw, function(item){
 
@@ -57,51 +73,17 @@ var LettresViewItems = function(cursor){
       return filtered;
 };
 
-Template.body.helpers({
-   LettresFiltered(){
-    return LettresViewItems(lettres);
-    },
-  count() {
-      return Lettres.find({}).count(); // ok nombre de courriers
-    },
-    // compteur des courriers a traiter
-  incompleteCount() {
-      return Lettres.find( { traite: { $eq: ''  } }).count( ); //ok - nbre sans réponse envoyée
+Template.navbar.events({
+'click .b2'(event){   
+
+   
+
   },
-    // compteur des courriers avec réponse ce jour. - ok
-  todayCount() {    
-    return Lettres.find({ deadline: { $eq:today } }).count();
-  },
-  tomorrowCount() {    
-    return Lettres.find({ deadline: { $gt:today } }).count();
-  },
-  // compteur des réponses hors délai.
-  deadlineCount() { 
-    return Lettres.find({ deadline: {$lt: today } }).count();
-  //$or: [{end_date: null}, {end_date: {$gte: 1376982000}}]
-  }
-});
 
-
-
-
-var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //Janvier = 0 
-    var yyyy = today.getFullYear();
-      if(dd<10) {
-        dd = '0'+dd
-      } 
-      if(mm<10) {
-        mm = '0'+mm
-      } 
-    today = dd + '/' +mm + '/' + yyyy;
-
-Template.body.events({
 	'submit .new-task'(event){
 		event.preventDefault();
 
-   let date =  moment(event.target.date.value).format('DD/MM/YYYY');
+    let date =  moment(event.target.date.value).format('DD/MM/YYYY');
     if(!date){ alert("Veuillez saisir la date d'enregistrement svp !"); stop.propagation();}  
     console.log('date : ' + date);    
 
@@ -142,9 +124,7 @@ Template.body.events({
       event.target.traite.value = '';
        }
 	},
-
   'keydown .search': function(e, t){
-
     // === 13 : Enter
     if(e.which === 13)
     {
@@ -156,40 +136,80 @@ Template.body.events({
           var searchString = searchInput.val();
           pageSession.set("LettresViewSearchString", searchString);
         }
-
       }
       return false;
     }
-
-
     // === 27 : "Escape"
-
     if(e.wich === 27){
       event.preventDefault();
-
       var form = $(e.currentTarget).parent();
-
         if(form){
           var searchInput = form.find("#search-input");
-
             if(searchInput){
             searchInput.val("");
             pageSession.set("LettresViewSearchString", "");
         }
-
     }
-
     return false;
-
     }
-
   return true; // donc envoi du submit
-  }
-
+  },
 });
 
+Template.complete.helpers({
+  LettresFiltered(){
+    return LettresViewItems(lettres);
+    }
+});
+Template.today.helpers({
+  todayFiltered(){
+    return LettresViewItems(lettres1);
+    }
+});
+Template.tomorrow.helpers({
+  tomorrowFiltered(){
+    return LettresViewItems(lettres2);
+    }
+});
+Template.past.helpers({
+  pastFiltered(){
+    return LettresViewItems(lettres3);
+    }
+});
 
+Template.processed.helpers({
+  processedFiltered(){
+    return LettresViewItems(lettres5);
+    }
+});
 
+Template.noProcessed.helpers({
+  noProcessedFiltered(){
+    return LettresViewItems(lettres4);
+    }
+});
+
+Template.navbar.helpers({ 
+  count() {
+    return Lettres.find({}).count(); // ok nombre de courriers
+  },
+  // compteur des réponses hors délai.
+  todayCount() { 
+    return Lettres.find({ deadline: {$eq: today } }).count();
+  },
+  tomorrowCount() { 
+    return Lettres.find({ deadline: {$gt: today } }).count();
+  },
+  pastCount() { 
+    return Lettres.find({ deadline: {$lt: today } }).count();
+  },
+  processedCount() { 
+    return Lettres.find({ traite: {$ne: "" } }).count();
+  },
+  noProcessedCount() { 
+    return Lettres.find({ traite: {$eq: "" } }).count();
+  }
+})
  
 Template.lettre.events({
   'click .list-courrier'(event, instance){
@@ -198,8 +218,6 @@ Template.lettre.events({
     Modal.show('modal_show_courrier', instance.data); // instance.data sert à accéder aux valeurs du texte
   }
 });
-
-
 
 Template.modal_show_courrier.events({
   'submit .js-edit-courrier' (event, instance){
@@ -234,3 +252,5 @@ Template.modal_show_courrier.events({
     Modal.hide();
   }
 });
+
+//  $('.title3').css('color', 'blue');

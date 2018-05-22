@@ -1,56 +1,55 @@
 <body>
+<!-- // ici sera affiché le rendu du main_layout -->
+</body>
+<template name="main_layout">
+      {{> yield }}
+</template>
+
+
+<template name="navbar">
   <div class="container-fluid">  
-    <nav class="navbar navbar-inverse navbar-static-top nav nav-pills flex-column flex-sm-row">
-      <h2 class="title text-center" style=" display: inline; font-size: 0.95em:">CCV Friville - Gestion des courriers reçus</h2>       
-    </nav> 
+   <nav class="navbar navbar-inverse navbar-static-top nav nav-pills flex-column flex-sm-row">
+    <div class="col-sm-9">
+      <h2 class="title text-center" style=" display: inline; font-size: 0.95em:">CCV Friville - Gestion des courriers reçus </h2> 
+    </div>
+
+    <div class="col-sm-3"> {{>form_search }} </div>
+  </nav> 
+
     <div class="row">
       <div class="col-sm-12 ">
           <h2 class="text-center title2"> Nouvel enregistrement</h2>
       </div>
     </div>
 
-      {{>form_new_tasks}}
+    {{>form_new_tasks}}
 
     <div class="row">
         <div class="col-sm-12 ligne1"> &nbsp;</div>
     </div>
   
-    <div class="form-group row" style="margin:0 auto;">
-      <div class="col-sm-8">
-        <h2 class="text-center title3"> Liste des courriers reçus : {{count}} </h2> 
-      </div>  
-      <div class="col-sm-4"> {{>form_search }} </div>
-    </div>
+    <div class="form-group row row1">
+      <div class="col-sm-2" style="width:17%;">
+        <h4 class="text-center title3"> <b>Total reçus : {{count}} &nbsp; </b><a href="{{pathFor route='complete' }}"><input type="button" class="btn b2 " name="btn2" value="Afficher" ></a> </h4> 
+      </div> 
+      <div class="col-sm-2" style="width:17%;">
+        <h4 class="text-center title4">Rép. du jour: {{todayCount}} <a href="{{pathFor route='today'}}"><input type="button" class="btn" name="btn1" value="Afficher" /></a></h4>
+      </div>
+      <div class="col-sm-2" style="width:17%;">  
+      <h4 class="text-center title5">Rép. dépassées: {{pastCount}} <a href="{{pathFor route='past'}}"><input type="button" class="btn" name="btn3" value="Afficher" /></a></h4>
+      </div>
+      <div class="col-sm-2" style="width:17%;">
+      <h4 class="text-center title6">Rép. à faire: {{tomorrowCount}} <a href="{{pathFor route='tomorrow'}}"><input type="button" class="btn" name="btn4" value="Afficher" /></a></h4>
+      </div>
+      <div class="col-sm-2" style="width:16%;">  
+      <h4 class="text-center title7">Traité: {{processedCount}} <a href="{{pathFor route='processed'}}"><input type="button" class="btn" name="btn5" value="Afficher" /></a></h4>
+      </div>
+      <div class="col-sm-2" style="width:16%;">
+      <h4 class="text-center title8">A Traiter: {{noProcessedCount}} <a href="{{pathFor route='noProcessed'}}"><input type="button" class="btn" name="btn6" value="Afficher" /></a></h4>
+      </div>
+    </div> 
 
-    <div class="row" >
-      <div class="col-xs-6 col-lg-2 text-right"> 
-        <h4>Réponse du jour: {{todayCount}} </h4>
-      </div>
-      <div class="col-xs-6 col-lg-1 text-left">
-          <form class="today-courriers" ><button type="bouton" id="btn4" class="btn"> Afficher</button></form>
-      </div>
-      <div class="col-xs-6 col-lg-2 text-right">
-        <h4>Réponse dépassée: {{deadlineCount}} </h4>
-      </div>
-      <div class="col-xs-6 col-lg-1 xt-left">
-          <form class="past-courriers" ><button type="bouton" id="btn3" class="btn"> Afficher</button></form> 
-      </div>  
-      <div class="col-xs-6 col-lg-2 text-right">
-        <h4>Réponse a faire: {{tomorrowCount}} </h4>
-      </div>
-      <div class="col-xs-6 col-lg-1 xt-left">  
-          <form class="tomorrow-courriers" ><button type="bouton" id="btn4" class="btn"> Afficher</button></form>
-      </div>   
-      <div class="col-xs-6 col-lg-2 text-right">
-        <h4>En attente de réponse: {{incompleteCount}} &nbsp;</h4> 
-       </div>
-      <div class="col-xs-6 col-lg-1 xt-left">
-        <form class="next-courriers" > <button type="bouton" id="btn2" class="btn"> Afficher</button></form>
-      </div>
-    </div>
-   
-   <hr class="hr1">
-
+    <hr class="hr1">
     <ul class="list-inline js-edit-courrier list-courrier" style="background-color: #efefef; ">    
       <li class="list-inline-item l2"><b>Date</b></li>
       <li class="list-inline-item l3"><b>Expéditeur</b></li>
@@ -60,76 +59,65 @@
       <li class="list-inline-item l7"><b>Observations</b></li>
       <li class="list-inline-item l8"><b>Traité</b></li>
     </ul>
- <hr class="hr1">
-          {{#each LettresFiltered}}
-            {{> lettre}}
-          {{/each}}
+    <hr class="hr1"> 
+  </div>
 
-
-    <footer >
+  <footer >
       <div class="row"> 
         <div class="col-sm-12 text-center">
           CCV Friville Escarbotin - Version 1.0 / Avril 2018
         </div> 
       </div>
     </footer>
-
-  </div>
-</body>
-
-<template name="form_new_tasks"> 
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="panel panel-default">
-        <div class="panel-body">
-      <form class="new-task">
-        <div class="form-group row">
-                  <label class="col-sm-1 col-sm-form-label">Date</label>
-                  <label class="col-sm-2 col-sm-form-label">Expéditeur</label>
-                  <label class="col-sm-2 col-sm-form-label">Destinataire</label>
-                  <label class="col-sm-2 col-sm-form-label">Objet</label>
-                  <label class="col-sm-1 col-sm-form-label">Limite Rep.</label>
-                  <label class="col-sm-3 col-sm-form-label">Observations</label>
-                  <label class="col-sm-1 col-sm-form-label">&nbsp;</label>
-         </div>
-          <div class="form-group row">
-            <div class="col-sm-1" style="width:160px;"><input class="form-control" id="idexp" type="date" name="date" placeholder="jj/mm/aaaa"></div>
-                <div class="col-sm-2"><input class="form-control" type="text" name="exp" placeholder="Expediteur"></div>
-                <div class="col-sm-2"><input class="form-control" type="text" name="dest" placeholder="Destinataire"></div>
-                <div class="col-sm-2"><input class="form-control" type="text" name="objet" placeholder="Objet"></div>
-                <div class="col-sm-1" style="width:160px;"><input class="form-control" type="date" dateformat="dmy" placeholder="jj/mm/aaaa" name="deadline"  ></div>
-                <div class="col-sm-3" style="width:350px;"><input class="form-control" name="obs" type="text" placeholder="Observations"></div>
-                <div class="col-sm-1" style="width:90px;"><button class="btn btn-primary submit" type="submit" name="submit">Ajouter</button></div>     
-                 <input class="form-control" name="traite" type="hidden" >
-         </div>
-   </form>
-    </div>
-      </div>
-    </div>
-  </div>
 </template>
-
-<template name="lettre" >
-  <ul class="list-inline js-edit-courrier list-courrier" style="cursor: pointer; padding-bottom: 0;" > 
-    <li class="list-inline-item l2">{{date}}</li>
-    <li class="list-inline-item l3">{{exp}}</li>
-    <li class="list-inline-item l4">{{dest}}</li>
-    <li class="list-inline-item l5">{{objet}}</li>
-    <li class="list-inline-item l6">{{deadline}}</li>
-    <li class="list-inline-item l7">{{obs}}</li>
-    <li class="list-inline-item l8">{{traite}}</li>  
-    <hr class="hr1">
-  </ul>
+<template name="complete">
+  <div>
+    {{>navbar}}
+  </div> 
+  {{#each LettresFiltered}}         
+     {{> lettre}}  
+  {{/each}}
 </template>
-
-<template name="form_search">
-  <form class="search">    
-   <input type="text" id="search-input" name="searchString" placeholder="Elément a rechercher" class="form-control">
-  </form>
+<template name="today"> 
+  <div>
+    {{>navbar}}
+  </div> 
+  {{#each todayFiltered}}         
+    {{> lettre}}
+  {{/each}}  
 </template>
-
-
-
+<template name="past"> 
+  <div>
+    {{>navbar}}
+  </div> 
+  {{#each pastFiltered}}         
+    {{> lettre}}
+  {{/each}}  
+</template>
+<template name="tomorrow"> 
+  <div>
+    {{>navbar}}
+  </div> 
+  {{#each tomorrowFiltered}}         
+    {{> lettre}}
+  {{/each}}  
+</template>
+<template name="processed">
+  <div>
+    {{>navbar}}
+  </div> 
+  {{#each processedFiltered}}         
+     {{> lettre}}  
+  {{/each}}
+</template>
+<template name="noProcessed"> 
+  <div>
+    {{>navbar}}
+  </div> 
+  {{#each noProcessedFiltered}}         
+    {{> lettre}}
+  {{/each}}  
+</template>
 <template name="modal_show_courrier"> 
   <div class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -174,4 +162,52 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+</template>
+<template name="form_new_tasks"> 
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+      <form class="new-task">
+        <div class="form-group row row1">
+                  <label class="col-sm-1 col-sm-form-label">Date</label>
+                  <label class="col-sm-2 col-sm-form-label">Expéditeur</label>
+                  <label class="col-sm-2 col-sm-form-label">Destinataire</label>
+                  <label class="col-sm-2 col-sm-form-label" >Objet</label>
+                  <label class="col-sm-1 col-sm-form-label text-center" style="width:210px;">Limite Rep.</label>
+                  <label class="col-sm-3 col-sm-form-label" style="width:310px;">Observations</label>
+                  <label class="col-sm-1 col-sm-form-label" >&nbsp;</label>
+         </div>
+          <div class="form-group row">
+            <div class="col-sm-1" style="width:160px;"><input class="form-control" id="idexp" type="date" name="date" placeholder="jj/mm/aaaa"></div>
+            <div class="col-sm-2"><input class="form-control" type="text" name="exp" placeholder="Expediteur"></div>
+            <div class="col-sm-2"><input class="form-control" type="text" name="dest" placeholder="Destinataire"></div>
+            <div class="col-sm-2"><input class="form-control" type="text" name="objet" placeholder="Objet"></div>
+            <div class="col-sm-1" style="width:160px;"><input class="form-control" type="date" dateformat="dmy" placeholder="jj/mm/aaaa" name="deadline"  ></div>
+            <div class="col-sm-3" style="width:350px;"><input class="form-control" name="obs" type="text" placeholder="Observations"></div>
+            <div class="col-sm-1" style="width:90px;"><button class="btn btn-primary submit" type="submit" name="submit">Ajouter</button></div>     
+            <input class="form-control" name="traite" type="hidden" >
+         </div>
+   </form>
+    </div>
+      </div>
+    </div>
+  </div>
+</template>
+<template name="lettre" >
+  <ul class="list-inline js-edit-courrier list-courrier ht-ul" style="cursor: pointer; padding-bottom: 0; background-color: #f8f8f8;" > 
+    <li class="list-inline-item l2">{{date}}</li>
+    <li class="list-inline-item l3">{{exp}}</li>
+    <li class="list-inline-item l4">{{dest}}</li>
+    <li class="list-inline-item l5">{{objet}}</li>
+    <li class="list-inline-item l6">{{deadline}}</li>
+    <li class="list-inline-item l7">{{obs}}</li>
+    <li class="list-inline-item l8">{{traite}}</li>  
+    <hr class="hr1">
+  </ul>
+</template>
+<template name="form_search">
+ <form class="search">    
+   <input type="text" id="search-input" name="searchString" placeholder="Données à rechercher" class="form-control search_text">
+  </form>
 </template>
