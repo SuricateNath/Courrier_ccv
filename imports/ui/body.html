@@ -1,0 +1,212 @@
+<body>
+<!-- // ici sera affiché le rendu du main_layout -->
+</body>
+<template name="main_layout">
+      {{> yield }}
+</template>
+
+
+<template name="navbar">
+  <div class="container-fluid">  
+   <nav class="navbar navbar-inverse navbar-static-top nav nav-pills flex-column flex-sm-row">
+    <div class="col-sm-9">
+      <h2 class="title text-center" style=" display: inline; font-size: 0.95em:">CCV Friville - Gestion des courriers reçus </h2> 
+    </div>
+
+    <div class="col-sm-3"> {{>form_search }} </div>
+  </nav> 
+
+    <div class="row">
+      <div class="col-sm-12 ">
+          <h2 class="text-center title2"> Nouvel enregistrement</h2>
+      </div>
+    </div>
+
+    {{>form_new_tasks}}
+
+    <div class="row">
+        <div class="col-sm-12 ligne1"> &nbsp;</div>
+    </div>
+  
+    <div class="form-group row row1">
+      <div class="col-sm-2" style="width:17%;">
+        <h4 class="text-center title3"> <b>Total reçus : {{count}} &nbsp; </b><a href="{{pathFor route='complete' }}"><input type="button" class="btn b2 " name="btn2" value="Afficher" ></a> </h4> 
+      </div> 
+      <div class="col-sm-2" style="width:17%;">
+        <h4 class="text-center title4">Rép. du jour: {{todayCount}} <a href="{{pathFor route='today'}}"><input type="button" class="btn" name="btn1" value="Afficher" /></a></h4>
+      </div>
+      <div class="col-sm-2" style="width:17%;">  
+      <h4 class="text-center title5">Rép. dépassées: {{pastCount}} <a href="{{pathFor route='past'}}"><input type="button" class="btn" name="btn3" value="Afficher" /></a></h4>
+      </div>
+      <div class="col-sm-2" style="width:17%;">
+      <h4 class="text-center title6">Rép. future: {{tomorrowCount}} <a href="{{pathFor route='tomorrow'}}"><input type="button" class="btn" name="btn4" value="Afficher" /></a></h4>
+      </div>
+      <div class="col-sm-2" style="width:16%;">  
+      <h4 class="text-center title7">Traité: {{processedCount}} <a href="{{pathFor route='processed'}}"><input type="button" class="btn" name="btn5" value="Afficher" /></a></h4>
+      </div>
+      <div class="col-sm-2" style="width:16%;">
+      <h4 class="text-center title8">A Traiter: {{noProcessedCount}} <a href="{{pathFor route='noProcessed'}}"><input type="button" class="btn" name="btn6" value="Afficher" /></a></h4>
+      </div>
+    </div> 
+
+    <hr class="hr1">
+     <table class="table table-bordered">
+       <thead class="thead">
+        <tr>
+          <td style="width:10%;">Date</td>
+          <td style="width:15%;">Expediteur</td>
+          <td style="width:15%;">Destinataire</td>
+          <td style="width:20%;">Objet</td>
+          <td style="width:10%;">Limite réponse</td>
+          <td style="width:20%;">Observation</td>
+          <td style="width:10%;">Traité - A traiter</td>  
+         </tr>
+      </thead>
+    </table>
+    <hr class="hr1"> 
+  </div>
+</template>
+<template name="complete">
+  <div>
+    {{>navbar}}
+  </div> 
+  {{#each LettresFiltered}}         
+     {{> lettre}}  
+  {{/each}}
+</template>
+<template name="today"> 
+  <div>
+    {{>navbar}}
+  </div> 
+  {{#each todayFiltered}}         
+    {{> lettre}}
+  {{/each}}  
+</template>
+<template name="past"> 
+  <div>
+    {{>navbar}}
+  </div> 
+  {{#each pastFiltered}}         
+    {{> lettre}}
+  {{/each}}  
+</template>
+<template name="tomorrow"> 
+  <div>
+    {{>navbar}}
+  </div> 
+  {{#each tomorrowFiltered}}         
+    {{> lettre}}
+  {{/each}}  
+</template>
+<template name="processed">
+  <div>
+    {{>navbar}}
+  </div> 
+  {{#each processedFiltered}}         
+     {{> lettre}}  
+  {{/each}}
+</template>
+<template name="noProcessed"> 
+  <div>
+    {{>navbar}}
+  </div> 
+  {{#each noProcessedFiltered}}         
+    {{> lettre}}
+  {{/each}}  
+</template>
+<template name="modal_show_courrier"> 
+  <div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">     
+      <div class="modal-body">
+
+           <form class="js-edit-courrier">        
+             
+            <div class="input-group-prepend">
+
+              <input class="form-control" type="hidden" name="_id" value="{{_id}}" />
+
+              <span class="input-group-text">Date Enreg.</span>
+              <input class="form-control" type="text" name="date" value="{{date}}" >  <br>
+                        
+              <span class="input-group-text">Expediteur</span>
+              <input class="form-control" type="text" name="exp" placeholder="Expediteur"  value="{{exp}}" >   <br>
+
+              <span class="input-group-text">Objet</span>
+              <input class="form-control" type="text" name="objet" placeholder="Objet"  value="{{objet}}"> <br>
+             
+              <span class="input-group-text">Destinataire</span>
+              <input class="form-control" type="text" name="dest" placeholder="Destinataire"  value="{{dest}}">  <br>
+            
+              <span class="input-group-text">Observations</span>
+              <textarea class="form-control resize-vertical" name="obs" placeholder="Observations" cols="80" rows="4">{{obs}} </textarea><br>
+            
+              <span class="input-group-text">Date limite de réponse</span>
+              <input class="form-control" type="text" name="deadline"  value="{{deadline}}"> <br>
+
+              <span class="input-group-text">Traité</span>
+              <input class="form-control" type="text" name="traite"  value="{{traite}}">  <br>
+            </div>
+
+            <div class="modal-footer" >
+              <button class="btn btn1" type="button"  data-dismiss="modal">Retour</button>
+              <button class="btn btn1" type="submit" name="update" data-dissmiss="modal" >Sauvegarder</button>                    
+              <button class="btn btn1 js-delete-courrier" type="button" name="delete" data-dissmiss="modal">Supprimer</button>
+            </div>
+          </form>
+        </div>     
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</template>
+<template name="form_new_tasks"> 
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+      <form class="new-task">
+        <div class="form-group row row1">
+                  <label class="col-sm-1 col-sm-form-label">Date</label>
+                  <label class="col-sm-2 col-sm-form-label">Expéditeur</label>
+                  <label class="col-sm-2 col-sm-form-label">Destinataire</label>
+                  <label class="col-sm-2 col-sm-form-label" >Objet</label>
+                  <label class="col-sm-1 col-sm-form-label text-center" style="width:210px;">Limite Rep.</label>
+                  <label class="col-sm-3 col-sm-form-label" style="width:310px;">Observations</label>
+                  <label class="col-sm-1 col-sm-form-label" >&nbsp;</label>
+         </div>
+          <div class="form-group row1 row text-left">
+            <div class="col-sm-1" style="width:160px;"><input class="form-control" id="idexp" type="date" name="date" placeholder="jj/mm/aaaa"></div>
+            <div class="col-sm-2"><input class="form-control" type="text" name="exp" placeholder="Expediteur"></div>
+            <div class="col-sm-2"><input class="form-control" type="text" name="dest" placeholder="Destinataire"></div>
+            <div class="col-sm-2"><input class="form-control" type="text" name="objet" placeholder="Objet"></div>
+            <div class="col-sm-1" style="width:160px;"><input class="form-control" type="date" dateformat="dmy" placeholder="jj/mm/aaaa" name="deadline"  ></div>
+            <div class="col-sm-3" style="width:350px;"><input class="form-control" name="obs" type="text" placeholder="Observations"></div>
+            <div class="col-sm-1" style="width:90px;"><button class="btn btn-primary submit" type="submit" name="submit">Ajouter</button></div>     
+            <input class="form-control" name="traite" type="hidden" >
+         </div>
+   </form>
+    </div>
+      </div>
+    </div>
+  </div>
+</template>
+<template name="lettre" >
+  <table class="table table-bordered list-courrier">
+   <tbody>
+    <tr>
+      <td style="width:10%;">{{date}}</td>
+      <td style="width:15%;">{{exp}}</td>
+      <td style="width:15%;">{{dest}}</td>
+      <td style="width:20%;">{{objet}}</td>
+      <td style="width:10%;">{{deadline}}</td>
+      <td style="width:20%;">{{obs}}</td>
+      <td style="width:10%;">{{traite}}</td>  
+    </tr>
+  </tbody>
+</table>
+</template>
+<template name="form_search">
+ <form class="search">    
+   <input type="text" id="search-input" name="searchString" placeholder="Données à rechercher" class="form-control search_text">
+  </form>
+</template>

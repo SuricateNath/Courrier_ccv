@@ -26,3 +26,4 @@ aldeed:simple-schema
 aldeed:collection2
 reactive-dict@1.2.0
 momentjs:moment
+iron:router

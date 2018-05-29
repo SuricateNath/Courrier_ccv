@@ -1,5 +1,2 @@
-import { Meteor } from 'meteor/meteor';
+import '../imports/api/lettres.js';
 
-Meteor.startup(() => {
-  // permet l'autorun de l'appli 
-});
